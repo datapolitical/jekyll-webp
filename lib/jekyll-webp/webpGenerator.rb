@@ -90,7 +90,7 @@ module Jekyll
               # is newer than the source file, if not then regenerate
               if @config['regenerate'] || !File.file?(outfile_fullpath_webp) || !File.file?(srcfile_fullpath_webp) ||
                  File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile)
-                Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
+                Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP again"
 
                 # Generate the file
                 WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
