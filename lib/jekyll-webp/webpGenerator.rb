@@ -88,13 +88,15 @@ module Jekyll
               # If we're force rebuilding all webp files then ignore the check
               # also check the modified time on the files to ensure that the webp file
               # is newer than the source file, if not then regenerate
-              if @config['regenerate'] || !File.file?(outfile_fullpath_webp) || File.file?(srcfile_fullpath_webp) ||
-                 File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile)
-                Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP again"
+              unless File.file?(srcfile_fullpath_webp)
+                if @config['regenerate'] || !File.file?(outfile_fullpath_webp) || 
+                   File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile)
+                  Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP again"
 
-                # Generate the file
-                WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
-                file_count += 1
+                  # Generate the file
+                  WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
+                  file_count += 1
+                end
               end
               if File.file?(outfile_fullpath_webp)
                 # Keep the webp file from being cleaned by Jekyll
