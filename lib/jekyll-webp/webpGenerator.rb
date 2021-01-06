@@ -82,12 +82,13 @@ module Jekyll
               end
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
+              srcfile_fullpath_webp = File.join(imgdir_source + imgfile_relative_path, outfile_filename)
 
               # Check if the file already has a webp alternative?
               # If we're force rebuilding all webp files then ignore the check
               # also check the modified time on the files to ensure that the webp file
               # is newer than the source file, if not then regenerate
-              if @config['regenerate'] || !File.file?(outfile_fullpath_webp) ||
+              if @config['regenerate'] || !File.file?(outfile_fullpath_webp) || !File.file?(srcfile_fullpath_webp) ||
                  File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile)
                 Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
 
