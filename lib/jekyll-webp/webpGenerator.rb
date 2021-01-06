@@ -83,6 +83,11 @@ module Jekyll
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
               srcfile_fullpath_webp = File.join(imgdir_source + imgfile_relative_path, outfile_filename)
+              srcfile_fullpath_org = File.join(imgdir_source + imgfile)
+          
+              Jekyll.logger.info "WebP:", "Outfile path is #{outfile_fullpath_webp}"
+              Jekyll.logger.info "WebP:", "Srcfile-webp path is #{srcfile_fullpath_webp}"
+              Jekyll.logger.info "WebP:", "Srcfile path is #{srcfile_fullpath_org}"
 
               # Check if the file already has a webp alternative?
               # If we're force rebuilding all webp files then ignore the check
